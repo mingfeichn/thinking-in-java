@@ -48,5 +48,18 @@ final声明使容器中的对象可以被随意读取，但无法被改变，如
 如果要是class Fibonacci实现Iterable，可以重写Fibonacci生成器，另一种做法是创建一个适配器（adapter）来实现所需接口
 class IterableFibonacci演示了通过继承来创建适配器类
 
+## class GenericMethods
+泛型方法，类中可以包含参数化方法，无论该类是否是泛型类
+泛型方法可以取代将整个类泛型化  
+static方法无法访问泛型类的类型参数， 如果static方法需要使用泛型能力，必须使其成为泛型方法  
+定义泛型方法，只需将泛型参数列表置于返回值之前 
 
+使用泛型类时，必须在创建对象的时候指定类型参数的值，通过类型参数推断(type argument inference)在使用泛型方法时不必指定参数类型
+
+## class New
+使用泛型实现的容器工具类，类型参数推断避免了重复的泛型参数列表 
+
+
+## class SimplerPets
+类型推断的进一步演示
 
