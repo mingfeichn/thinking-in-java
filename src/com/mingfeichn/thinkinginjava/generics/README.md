@@ -27,4 +27,26 @@ final声明使容器中的对象可以被随意读取，但无法被改变，如
 ## class TupleTest
 使用泛型实现原则，并测试元组返回多个对象
 
+## class LinkedStack
+泛型的只要作用之一是创建容器类。
+该类使用泛型实现了链式栈
+
+## class RandomList
+使用泛型实现一个列表，每次调用列表的select()方法，会从列表中随机获取一个元素
+
+## package coffee
+该包演示了泛型用于接口，实现了一个咖啡类的生成器  
+参数化的Generator接口确保next()返回值是参数的类型  
+由于CoffeeGenerator实现了Iterator接口，所以可以在循环语句中使用  
+第二个构造器作为“末端哨兵”判断了何时停止  
+
+## class Fibonacci
+实现了Generator<T>接口，生成Fibonacci数列
+基本类型无法作为类型参数，可以通过JAVA SE5后支持的自动封包和自动拆包在基本类型和响应的包装器之间进行转换
+
+## class IterableFibonacci
+如果要是class Fibonacci实现Iterable，可以重写Fibonacci生成器，另一种做法是创建一个适配器（adapter）来实现所需接口
+class IterableFibonacci演示了通过继承来创建适配器类
+
+
 

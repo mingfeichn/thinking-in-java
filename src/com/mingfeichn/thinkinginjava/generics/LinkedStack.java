@@ -1,7 +1,7 @@
 package com.mingfeichn.thinkinginjava.generics;
 
 /**
- * 实现自定义的内部链式存储
+ * 实现链式栈
  *
  * @author Mingfei
  * @version Created in 7/20/2018
@@ -26,7 +26,7 @@ public class LinkedStack<T> {
         }
     }
 
-    private Node<T> top = new Node<T>(); //End sentinel
+    private Node<T> top = new Node<>(); //末端哨兵
 
     public void push(T item) {
         top = new Node<>(item, top);
@@ -42,12 +42,12 @@ public class LinkedStack<T> {
 
     public static void main(String[] args) {
         LinkedStack<String> lss = new LinkedStack<>();
-        for (String s : "Phasers or stun!".split(" ")){
+        for (String s : "Phasers or stun!".split(" ")) {
             lss.push(s);
         }
 
         String s;
-        while((s = lss.pop()) != null){
+        while ((s = lss.pop()) != null) {
             System.out.println(s);
         }
     }
