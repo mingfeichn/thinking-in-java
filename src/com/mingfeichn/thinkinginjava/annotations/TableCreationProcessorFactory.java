@@ -1,6 +1,6 @@
 package com.mingfeichn.thinkinginjava.annotations;
 
-import com.sun.mirror.apt.AnnotationProcessor;
+/*import com.sun.mirror.apt.AnnotationProcessor;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.apt.AnnotationProcessorFactory;
 import com.sun.mirror.declaration.AnnotationTypeDeclaration;
@@ -9,10 +9,10 @@ import com.sun.mirror.declaration.FieldDeclaration;
 import com.sun.mirror.util.SimpleDeclarationVisitor;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.Set;*/
 
-public class TableCreationProcessorFactory implements AnnotationProcessorFactory {
-    @Override
+public class TableCreationProcessorFactory /*implements AnnotationProcessorFactory*/ {
+/*    @Override
     public Collection<String> supportedOptions() {
         return null;
     }
@@ -27,9 +27,9 @@ public class TableCreationProcessorFactory implements AnnotationProcessorFactory
         return new TableCreationProcessor(env);
     }
 
-    /**
+    *//**
      * 处理器
-     */
+     *//*
     private static class TableCreationProcessor implements AnnotationProcessor {
         private final AnnotationProcessorEnvironment env;
 
@@ -45,9 +45,9 @@ public class TableCreationProcessorFactory implements AnnotationProcessorFactory
         }
     }
 
-    /**
+    *//**
      * 访问者
-     */
+     *//*
     private class TableCreationVisitor extends SimpleDeclarationVisitor {
         public void visitClassDeclaration(ClassDeclaration d) {
 
@@ -57,11 +57,11 @@ public class TableCreationProcessorFactory implements AnnotationProcessorFactory
 
         }
 
-        /**
+        *//**
          * 获取约束
          * @param con
          * @return
-         */
+         *//*
         private String getConstraints(Constraints con) {
             String constraints = "";
             if (!con.allowNull())
@@ -73,7 +73,7 @@ public class TableCreationProcessorFactory implements AnnotationProcessorFactory
 
             return constraints;
         }
-    }
+    }*/
 }
 
 

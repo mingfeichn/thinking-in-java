@@ -1,6 +1,6 @@
 package com.mingfeichn.thinkinginjava.annotations;
 
-import com.sun.mirror.apt.AnnotationProcessor;
+/*import com.sun.mirror.apt.AnnotationProcessor;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.Modifier;
@@ -9,19 +9,19 @@ import com.sun.mirror.declaration.TypeDeclaration;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.ArrayList;*/
 
-public class InterfaceExtractorProcessor implements AnnotationProcessor {
+public class InterfaceExtractorProcessor /*implements AnnotationProcessor*/ {
 
-    private final AnnotationProcessorEnvironment env;
+    /*private final AnnotationProcessorEnvironment env;
     private ArrayList<MethodDeclaration> interfaceMethods = new ArrayList<>();
 
-    /**
+    *//**
      * 处理器的构造器
      * 使用AnnotationProcessorEnvironment对象作为参数，通过该对象可以获知apt正在处理的所有类型（类定义），
      * 并通过它获得Messager对象和Filter对象
      * @param env
-     */
+     *//*
     public InterfaceExtractorProcessor(AnnotationProcessorEnvironment env) {
         this.env = env;
     }
@@ -69,5 +69,5 @@ public class InterfaceExtractorProcessor implements AnnotationProcessor {
 
             }
         }
-    }
+    }*/
 }
