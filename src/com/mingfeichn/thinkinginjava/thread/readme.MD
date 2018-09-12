@@ -71,34 +71,43 @@ CAS是JUC中锁、同步工具和各种容器的基础
 - 线程的中断
 - 协作工具类
 - 阻塞队列
-- Future/FutureTask、
+- Future/FutureTask
 
 ### wait/notify
-wait/notify和synchronize配合使用是基本协作机制
 每个对象都有一把锁和两个等待队列：
 - 锁等待队列：放等待获取锁的线程
 - 条件等待队列：放等待条件的线程
+
+wait/notify和synchronize配合使用是基本协作机制
 wait将自己加入条件等待队列，notify从等待队列上移除一个线程并唤醒，notify移除所有线程并唤醒
 wait/notify只能在synchronized代码块内被调用
 调用wait释放对象锁，进入等待队列 - 被notify唤醒，进入blocked状态竞争对象锁 - 获取到锁从wait调用中返回，并重新检查等待的条件（等待条件不一定成立）
-局限性：
-不知道wait什么，也不知道notify什么，并且只能有一个等待队列
+
+局限性：不知道wait什么，也不知道notify什么，并且只能有一个等待队列
 
 ### 显示条件
-
+显示条件与显示锁配合使用
+支持多个等待队列，代码更易读，更高效
+signal/signalAll
 
 ### 线程的中断
-
+取消或终止线程的使用中断
+中断是一种协作机制，给线程传递一个取消信号，由线程决定如何及何时退出
+线程在不同的状态和IO操作时对中断的反应不同
+实现一个线程应该提供明确的取消或关闭线程的方法，调用时使用该方法而不是贸然使用interrupt
 
 ### 协作工具类
-
+除了基本的显示锁和条件，JUC针对常见的协作场景提供了多个处理协作的工具：
+- 信号量类Semaphore: 限制对资源的并发访问数
+- 倒计时问栓CountdownLatch: 主要用于不同角色线程的同步，如裁判/运动员模式，主从模式（主线程等待从线程的结果）
+- 循环栅栏CyclicBarrier: 主要用于同一角色线程的协调，先到达栅栏的线程等待其他线程到达，所有线程都到达后一起通过，它是循环的，可用作重复的同步
 
 ### 阻塞队列
-
-
+可用于生产者消费者模式
 
 ### Future/FutureTask
-
+可用于主从模式，主线程等待从线程的执行结果，常使用异步任务执行服务，只要提交任务，提交后会返回一个Future（接口，实现类是FutureTask）
+Future封装了主线程和执行线程的执行状态和结果的同步，主线程可以通过Future获取执行线程的状态、结果和取消执行线程，无需考虑同步和协作
 
 由于管理竞争和协作的复杂,Java为提供了高级服务：
 - 线程安全的容器
@@ -109,26 +118,67 @@ wait/notify只能在synchronized代码块内被调用
 - 并发容器
 
 ### 同步容器
-
+给普通容器加上synchronized实现线程安全的容器
+性能比较低
+复合操作和迭代需要手动使用synchronized同步（注意不要同步错对象）
 
 ### 并发容器
-- CopyOnWrite
+转为并发设计，线程安全、并发度高、迭代不会抛出ConcurrentModificationException，使用原子方式支持复合操作
+- CopyOnWriteArrayList和CopyOnWriteArraySet
 - ConcurrentHashMap
 - 基于SkipList的Map和Set
 - 各种队列
 
+#### CopyOnWriteArrayList和CopyOnWriteArraySet
+CopyOnWriteArrayList基于数组实现List接口
+CopyOnWriteArraySet基于CopyOnWriteArrayList实现Set接口
+
+以优化读操作为目标，牺牲了写性能，适用于读远多于写（修改不频繁），集合不大的场景
+
+#### ConcurrentHashMap
+HashMap线程不安全，在并发更新的情况下，HashMap的链表结构可能形成环，造成死循环，占满CPU
+ConcurrentHashMap是并发版的HashMap,通过细粒度锁和其他并发技术实现高并发，读完全并行，写在一定程度并行
+以原子方式支持一些复合操作，迭代不用加锁，不会抛出ConcurrentModificationException
+
+#### 基于SkipList的Map和Set
+TreeMap和TreeSet支持排序但线程不安全，ConcurrentHashMap线程安全但不支持排序
+ConcurrentSkipListMap和ConcurrentSkipListSet对应TreeMap和TreeSet的并发版
+使用SkipList而不是Tree是由于跳表更易实现高效并发算法
+
+ConcurrentSkipListMap没有使用锁，包括写操作都是并行的，迭代不会抛出ConcurrentModificationException,弱一致性，支持一些原子操作
+
+#### 各种队列
+- ConcurrentLinkedQueue: 先进先出，实现Queue接口
+- ConcurrentLinkedDeque：双端队列，实现Deque接口
+
+都是基于链表实现，没有限制大小，无界，实现原理是循环CAS，没有用锁
+
 
 ## 任务执行服务
-基本概念：
+将任务提交和任务执行分离，简化了异步任务，主要涉及接口：
+- Runnable和Callable
+- Executor和ExecutorService
+- Future
+
 主要实现方式：
 - 线程池
 - 定时任务
 
 ### 线程池
-
+线程池是任务执行服务的主要实现机制，实现类是ThreadPoolExecutor
+线程池包含：阻塞任务队列和工作者线程（循环从任务队列中接收任务并执行）
+线程池参数：
 
 
 ### 定时任务
+两种实现方式：
+- Timer和TimeTask
+    - 一个Timer对象背后只有一个Timer线程，意味着定时任务不能好事太长或无线循环
+    - 在执行r一个任务run方法时，如果run抛出异常，Timer退出，其他定时任务被取消
+- ScheduledExecutorService
+    - 基于线程池，可以有多个线程执行任务
+    - 主要实现类是：ScheduleThreadPoolExecutor
+    - 没有Timer的问题，建议使用
 
 
 ## 线程基础
