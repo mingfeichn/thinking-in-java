@@ -1,5 +1,8 @@
 package com.mingfeichn.thinkinginjava.thread;
 
+/**
+ * 通过实现Runnable接口创建线程
+ */
 public class MyThread02 implements Runnable {
     @Override
     public void run() {

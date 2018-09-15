@@ -3,6 +3,9 @@ package com.mingfeichn.thinkinginjava.thread;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 通过线程池创建线程
+ */
 public class MyThread04 implements Runnable {
     private static int POOL_NUM = 5;
 

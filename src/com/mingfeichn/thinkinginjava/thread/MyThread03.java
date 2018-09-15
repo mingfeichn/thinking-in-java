@@ -4,6 +4,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 通过实现Callable接口创建线程
+ */
 public class MyThread03 implements Callable {
     @Override
     public String call() throws Exception {
