@@ -66,7 +66,8 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
     }
 
     public V put(K key, V value) {
-        return putVal();
+        //return putVal();
+        return null;
     }
 
     /**
@@ -84,5 +85,6 @@ public class HashMap<K, V> extends AbstractMap<K, V> implements Map<K, V>, Clone
         Node<K, V> p;
         int n, i;
 
+        return null;
     }
 }
