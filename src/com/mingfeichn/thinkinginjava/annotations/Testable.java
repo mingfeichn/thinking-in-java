@@ -8,7 +8,7 @@ public class Testable {
         System.out.println("Executing...");
     }
 
-    @Test
+    @TestAnnotation
     void testExecute() {
         execute();
     }
