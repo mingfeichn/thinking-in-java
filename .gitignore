@@ -1,22 +1,30 @@
-#Intellij
-*.iml
-*.ipr
-*.iws
-.idea
-target
-
-#Eclipse
+# Compiled class file
+*.class
+# Log file
+*.log
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+# Eclipse
 .metadata
 .classpath
 .eclipse/
-.idea/
-.project
 .revision/
 .settings/
-.externalToolBuilders/
+.project
 local.properties
 .recommenders
 *.launch
 build/
 target/
 out/
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea
+target
